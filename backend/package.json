@@ -24,11 +24,6 @@
     "mongoose": "^8.10.0",
     "nodemon": "^3.1.9"
   },
-  "babel": {
-    "presets": [
-      "@babel/preset-env"
-    ]
-  },
   "devDependencies": {
     "@babel/cli": "^7.27.0",
     "@babel/core": "^7.26.10",
