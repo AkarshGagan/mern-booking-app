@@ -1,0 +1,147 @@
+users.js
+res.cookie("auth_token", token, {
+httpOnly: true,
+secure: process.env.NODE_ENV === "production",
+maxAge: "86400000",
+//aslo u can use
+samesite
+path
+});
+
+- httpOnly Boolean Makes the cookie inaccessible to JavaScript (prevents XSS attacks). Js cannot access console.log(document.cookie); /
+- secure Boolean Sends the cookie only over HTTPS (for security in production).
+  http://localhost:3000. so this wont work for development
+
+- maxAge Number Sets how long the cookie should last (in milliseconds).
+- sameSite String Controls cross-site request behavior (helps prevent CSRF attacks).
+  Option Behavior
+  strict Cookie is only sent for requests from the same site. Best for security.
+  lax Cookie is sent for same-site and some cross-site requests.
+  none Cookie is sent even for cross-site requests (⚠️ Requires secure: true).
+- path: String Defines where the cookie is available in the app (e.g., / for all routes).
+  Defines where the cookie is accessible in your app.
+  ✅ Example Paths:
+  path Cookie is available for...
+  / Entire website (default & recommended)
+  /admin Only example.com/admin and subroutes
+
+In my users Model why didnt i send anything in response apart from 200 status
+the reason is
+Client will go to /register first and send a req to server
+in that regsier method
+i am setting a cookie in res with the token i generated
+res.cookie("auth_token", ⁡⁢⁣⁢𝘁𝗼𝗸𝗲𝗻⁡, {})
+🔹 What Happens?
+The browser stores the cookie automatically.
+The frontend never sees the token (this improves security).
+The client doesn’t need the token in the response body.
+Now suppose the next the user visits /dasboard
+and sends a fetch request
+fetch("/api/dashboard", {
+method: "GET",
+credentials: "include", // 🔥 Ensures cookies are sent
+})
+So this ensures You don’t need to manually send the JWT from the frontend to verify yourself. The browser automatically sends the stored JWT (inside the cookie) with every request to the server. 🚀
+So in server for dashoboard i can check if the cookie and its token
+app.get("/api/dashboard", (req, res) => {
+const token = req.cookies.auth_token; // ✅ Token is automatically sent by browser
+
+if (!token) return res.sendStatus(401); // Unauthorized
+
+try {
+const decoded = jwt.verify(token, process.env.JWT_SECRET_KEY);
+res.json({ message: `Welcome User ${decoded.userId}` });
+} catch (err) {
+res.sendStatus(403); // Forbidden if token is invalid
+}})
+Summary
+🔹 How It Works
+1️⃣ User logs in → The server stores the JWT in an HTTP-only cookie.
+2️⃣ Next requests → The browser automatically attaches the cookie when making requests.
+3️⃣ Server verifies the token and sends back a response.
+
+when I first tried to send register from my frontend it gave me cors error 2:42
+app,cors() was there from start but later after this point I added
+app.use(
+cors({
+origin: process.env.FRONTEND_URL,
+credentials: true,
+})
+);
+
+how I installed playwright to my systesm
+created a separate db for testing
+
+now we create a separte folder e2e-tests
+then run the command
+npm init playwright@latest
+
+and installed Playwright Test for vscode
+
+Then in backend folder I created .env.e2
+and in this we have connecting string for e2db
+
+Then we need to install this package in backend folder
+"cross-env": "^7.0.3",
+
+Then in package.json we need to add
+"e2e": "cross-env DOTENV_CONFIG_PATH=.env.e2e nodemon"
+
+so cross env is the package which allows setting of environment variables form different env files
+
+Then to test what we do is we run over backend folder using
+npm run e2e command
+so this gets us connected to test db and then in e2e folder we run the wanted tests.
+
+How to deploy to render
+add this sccriptin backend packag.json
+"build": "rimraf dist && babel src --out-dir dist",
+the run npm run build it will create a dist folder for backedn
+
+remeber this is abebel command we are usig this convert our code to be understood by both old and new browsers
+
+so we need to have babel also installed
+"devDependencies": {
+"@babel/cli": "^7.26.4",
+"@babel/node": "^7.26.0",
+"@babel/preset-env": "^7.26.9",
+"rimraf": "^6.0.1"
+}
+after this we will get dist folder in backend
+
+now after this we run npm build in frontend folder
+we dont need to do anything since vite will have evrything configured for us by default
+so just run npm run build
+we get dist foldeer in frontend
+
+Then backend index.js add
+app.use(express.static(path.join(\_\_dirname, "../../frontend/dist")));
+
+so we say go to frontend folder and run static assets from dist of frontend folder
+
+after adding the app.use(express.static(path.join(\_\_dirname, "../../frontend/dist"))); we need to build backend again
+
+Then we say npm start instead of npm run dev instead of npm run dev in backend folder
+No need to run fronted=nd
+
+go to localhost:7000/ u will see ur forntend
+
+in my frontend i have
+VITE_API_BASE_URL=http://localhost:7000
+
+yenaguute andre maccha nin vite alli neeu mention madtidya localhost:7000ge connect madu antha idu bekittu ninge munceh
+but ivaga after all the above step neenu nin fontend folderna direct locahost:7000 mele ne static file agii kodtidya so avaga ninge mention mado avashyaktahe illa so neen yen madtya andre neenu normall agi separte backend and frontend run madudre vite env use madu illa "" andre by default bartitro server indane Apibaseurl use madu antha helde
+
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "";
+
+export const registerUser = async (formadata) => {
+const response = await fetch(`${API_BASE_URL}/api/users/register`, {
+method: "POST",
+credentials: "include",
+headers: {
+"Content-Type": "application/json",
+)},}}
+
+yella changes admele matte erdunu build madu
+
+now everyting works on same server localhost:7000 without requiring to run 2 seperate servers
