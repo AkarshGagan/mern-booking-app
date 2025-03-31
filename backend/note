@@ -145,3 +145,6 @@ headers: {
 yella changes admele matte erdunu build madu
 
 now everyting works on same server localhost:7000 without requiring to run 2 seperate servers
+
+npm i cloudinary 4.45
+npm i multer 5.00

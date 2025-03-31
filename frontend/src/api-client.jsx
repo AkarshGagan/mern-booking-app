@@ -10,7 +10,6 @@ export const registerUser = async (formadata) => {
     body: JSON.stringify(formadata),
   });
   const responseBody = await response.json();
-  console.log(responseBody);
   if (!response.ok) {
     throw new Error(responseBody.message);
   }
@@ -26,7 +25,6 @@ export const signIn = async (formadata) => {
     body: JSON.stringify(formadata),
   });
   const responseBody = await response.json();
-  console.log(responseBody);
   if (!response.ok) {
     throw new Error(responseBody.message);
   }
@@ -47,9 +45,20 @@ export const signOut = async () => {
     credentials: "include",
     method: "POST",
   });
-  console.log(response, "response");
-  console.log(Boolean(response.ok));
   if (!response.ok) {
     throw new Error("Token invalid");
   }
+};
+
+export const addMyHotel = async (hotelFormData) => {
+  const response = await fetch(`${API_BASE_URL}/api/my-hotels`, {
+    credentials: "include",
+    method: "POST",
+    body: hotelFormData,
+  });
+
+  if (!response.ok) {
+    throw new Error("Failed to add hotel");
+  }
+  return response.json();
 };

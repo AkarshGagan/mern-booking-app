@@ -36,7 +36,7 @@ router.post(
         maxAge: 86400000,
       });
       res.status(200).json({
-        userrid: user._id,
+        userrid: user.id,
       });
     } catch (err) {
       res.status(500).json({

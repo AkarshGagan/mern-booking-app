@@ -19,7 +19,7 @@ function Register() {
     mutationFn: registerUser,
     onSuccess: async () => {
       await queryClient.invalidateQueries(["validateToken"]);
-      showToast({ message: "Registartion success", type: "SUCCESS" });
+      showToast({ message: "Registration success", type: "SUCCESS" });
       navigate("/");
     },
     onError: (error) => {

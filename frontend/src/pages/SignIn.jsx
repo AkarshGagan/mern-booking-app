@@ -17,7 +17,7 @@ function SignIn() {
     mutationFn: signIn,
     onSuccess: async () => {
       await queryClient.invalidateQueries(["validateToken"]);
-      showToast({ message: "Registartion success", type: "SUCCESS" });
+      showToast({ message: "Login Success", type: "SUCCESS" });
       navigate("/");
     },
     onError: (error) => {

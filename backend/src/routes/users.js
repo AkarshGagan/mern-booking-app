@@ -19,13 +19,9 @@ router.post(
     }
 
     try {
-      console.log("hai");
-
       let user = await User.findOne({
         email: req.body.email,
       });
-      console.log(user, "user");
-
       if (user) {
         return res.status(400).json({
           message: "User already exists",
@@ -33,8 +29,6 @@ router.post(
       }
       user = new User(req.body);
       await user.save();
-      console.log("user", user);
-
       const token = jwt.sign({ userId: user.id }, process.env.JWT_SECRET_KEY, {
         expiresIn: "1d",
       });

@@ -19,7 +19,6 @@ export const AppContextProvier = ({ children }) => {
     setToast(toastMessage);
   }
 
-  console.log(isError);
   return (
     <Appcontext.Provider
       value={{

@@ -17,7 +17,6 @@ function SignOutButton() {
   });
 
   function handleMutate() {
-    console.log("clicke");
     mutation.mutate();
   }
   return (
