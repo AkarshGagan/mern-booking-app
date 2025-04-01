@@ -67,4 +67,13 @@ router.post(
   }
 );
 
+router.get("/", verifyToken, async (req, res) => {
+  const hotels = await Hotel.find({ userId: req.userId });
+  res.json(hotels);
+  try {
+  } catch (err) {
+    res.status(500).json({ message: "Error handlig" });
+  }
+});
+
 module.exports = router;
