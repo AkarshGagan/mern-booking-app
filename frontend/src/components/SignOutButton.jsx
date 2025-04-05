@@ -7,7 +7,7 @@ function SignOutButton() {
   const { showToast } = useAppContext();
   const mutation = useMutation({
     mutationFn: signOut,
-    onSuccess: async () => {
+    onSuccessb: async () => {
       await queryClient.invalidateQueries("validateToken");
       showToast({ message: "Loggedout successully", type: "SUCCESS" });
     },

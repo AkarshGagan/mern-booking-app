@@ -4,13 +4,22 @@ import TypeSection from "./TypeSection";
 import FacilitiesSection from "./FacilitiesSection";
 import GuestsSection from "./GuestsSection";
 import ImagesSection from "./ImagesSection";
+import { useEffect } from "react";
 
-function ManageHotelForms({ onSave, isLoading }) {
+function ManageHotelForms({ onSave, isLoading, hotel }) {
   const formMethods = useForm();
-  const { handleSubmit } = formMethods;
+  const { handleSubmit, reset } = formMethods;
+
+  useEffect(() => {
+    reset(hotel);
+  }, [hotel, reset]);
 
   function onSubmit(formadataJson) {
     const formdata = new FormData();
+
+    if (hotel) {
+      formdata.append("hotelId", hotel._id);
+    }
     formdata.append("name", formadataJson.name);
     formdata.append("city", formadataJson.city);
     formdata.append("country", formadataJson.country);
@@ -25,10 +34,15 @@ function ManageHotelForms({ onSave, isLoading }) {
       formdata.append(`facilities[${index}]`, facility);
     });
 
+    if (formadataJson.imageUrls) {
+      formadataJson.imageUrls.forEach((url, index) => {
+        formdata.append(`imageUrls[${index}]`, url);
+      });
+    }
+
     Array.from(formadataJson.imageFiles).forEach((imageFile) => {
       formdata.append(`imageFiles`, imageFile);
     });
-
     onSave(formdata);
   }
 

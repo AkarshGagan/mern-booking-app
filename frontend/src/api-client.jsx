@@ -72,3 +72,29 @@ export const fetchMyHotel = async () => {
   }
   return response.json();
 };
+
+export const fetchMyHotelById = async (hotelId) => {
+  const response = await fetch(`${API_BASE_URL}/api/my-hotels//${hotelId}`, {
+    credentials: "include",
+  });
+  if (!response.ok) {
+    throw new Error("error fetching the hotel");
+  }
+  return response.json();
+};
+
+export const updateMyHotelById = async (hotelData) => {
+  const response = await fetch(
+    `${API_BASE_URL}/api/my-hotels/${hotelData.get("hotelId")}`,
+    {
+      method: "PUT",
+      body: hotelData,
+      credentials: "include",
+    }
+  );
+  if (!response.ok) {
+    return new Error("Failed to fetch update hotel");
+  }
+
+  return response.json();
+};
