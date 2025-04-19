@@ -3,6 +3,7 @@ import "./index.css";
 import App from "./App.jsx";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { AppContextProvier } from "./contexts/AppContext.jsx";
+import { SearchContextProvider } from "./contexts/SearchContext.jsx";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -15,7 +16,9 @@ const queryClient = new QueryClient({
 createRoot(document.getElementById("root")).render(
   <QueryClientProvider client={queryClient}>
     <AppContextProvier>
-      <App />
+      <SearchContextProvider>
+        <App />
+      </SearchContextProvider>
     </AppContextProvier>
   </QueryClientProvider>
 );

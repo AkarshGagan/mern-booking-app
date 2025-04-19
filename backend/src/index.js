@@ -4,6 +4,7 @@ const dotenv = require("dotenv/config");
 const mongoose = require("mongoose");
 const userRoutes = require("./routes/users");
 const myHotelRoutes = require("./routes/my-hotels");
+const hotelRoutes = require("./routes/hotels");
 const authRoutes = require("./routes/auth");
 const cookieparser = require("cookie-parser");
 const path = require("path");
@@ -35,6 +36,7 @@ app.use(express.static(path.join(__dirname, "../../frontend/dist")));
 app.use("/api/auth", authRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/my-hotels", myHotelRoutes);
+app.use("/api/hotels", hotelRoutes);
 
 app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname), "../../frontend/dist/index.html");

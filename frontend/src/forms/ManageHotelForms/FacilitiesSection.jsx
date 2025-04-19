@@ -9,8 +9,8 @@ function FacilitiesSection() {
 
   return (
     <div>
-      <h2 className="text-2xl font-bold mb-3">Facilities</h2>
-      <hr className="mb-5" />
+      <h2 className="text-2xl font-bold mb-7 mt-4">Facilities</h2>
+      <hr className="mb-5 border-black" />
       <div className="grid grid-cols-5 gap-3">
         {hotelFacilities.map((facility) => (
           <div key={facility}>

@@ -8,8 +8,9 @@ function GuestsSection() {
 
   return (
     <div>
-      <h2 className="text-2xl font-bold mb-3">Guests</h2>
-      <div className="grid grid-cols-2 p-6 gap-5 bg-gray-300">
+      <h2 className="text-2xl font-bold mb-7 mt-4">Guests</h2>
+      <hr className="border-black" />
+      <div className="grid grid-cols-2 p-6 gap-5 bg-gray-300 mt-4">
         <label className="text-gray-700 text-sm font-semibold">
           Adults
           <input

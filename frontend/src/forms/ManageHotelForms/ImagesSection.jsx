@@ -20,7 +20,8 @@ const ImagesSection = () => {
 
   return (
     <div>
-      <h2 className="text-2xl font-bold mb-3">Images</h2>
+      <h2 className="text-2xl font-bold mb-7 mt-4">Images</h2>
+      <hr className="border-black" />
       <div className="border rounded p-4 flex flex-col gap-4">
         {existingImageUrls && (
           <div className="grid grid-cols-6 gap-4">

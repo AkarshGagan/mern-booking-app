@@ -12,16 +12,16 @@ function TypeSection() {
 
   return (
     <div>
-      <h2 className="text-2xl font-bold mb-7">Type</h2>
-      <hr className="mb-5" />
+      <h2 className="text-2xl font-bold mb-7 mt-4">Type</h2>
+      <hr className="mb-5 border-black" />
       <div className="grid grid-cols-4 gap-2">
         {hotelTypes.map((type) => (
           <div key={type}>
             <label
               className={
                 typeWatch === type
-                  ? "cursor-pointer bg-blue-300 text-sm rounded-full px-4 py-2 font-semibold w-30 flex justify-center items-center"
-                  : "cursor-pointer bg-gray-300 text-sm rounded-full px-4 py-2 font-semibold w-30 flex justify-center items-center"
+                  ? "cursor-pointer bg-slate-100 border-black text-gray-800 text-sm rounded-full px-4 py-2 font-semibold w-30 flex justify-center items-center"
+                  : "cursor-pointer bg-gray-700 text-slate-200 text-sm rounded-full px-4 py-2 font-semibold w-30 flex justify-center items-center"
               }
             >
               <input

@@ -48,7 +48,7 @@ function ManageHotelForms({ onSave, isLoading, hotel }) {
 
   return (
     <FormProvider {...formMethods}>
-      <form className="flex flex-col gap-4" onSubmit={handleSubmit(onSubmit)}>
+      <form className="flex flex-col gap-" onSubmit={handleSubmit(onSubmit)}>
         <DetailsSection />
         <TypeSection />
         <FacilitiesSection />
