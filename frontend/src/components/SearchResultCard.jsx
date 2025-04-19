@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { AiFillStar } from "react-icons/ai";
 
 const SearchResultCard = ({ hotel }) => {
-  console.log(hotel);
+  //console.log(hotel);
 
   return (
     <div className="grid grid-cols-1 xl:grid-cols-[2fr_3fr] border border-black rounded-lg p-8 gap-8">

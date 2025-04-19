@@ -35,17 +35,17 @@ function Search() {
     sortOption,
   };
 
-  console.log(searchParams);
+  //console.log(searchParams);
 
   const { data: hotelData, isPending } = useQuery({
     queryKey: ["searchHotels", searchParams],
     queryFn: () => searcHotels(searchParams),
   });
-  console.log(hotelData);
+  //console.log(hotelData);
 
   const handleStarsChange = (e) => {
     const starRating = e.target.value;
-    console.log(starRating, "str");
+    //console.log(starRating, "str");
 
     setSelectedStars((prevStars) =>
       e.target.checked
@@ -74,7 +74,7 @@ function Search() {
     );
   };
 
-  console.log(selectedStars, "selstr");
+  //console.log(selectedStars, "selstr");
 
   if (isPending) {
     return <>Loading...</>;

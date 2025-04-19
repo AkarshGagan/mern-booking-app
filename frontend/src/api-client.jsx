@@ -118,7 +118,7 @@ export const searcHotels = async (searchParams) => {
 
   searchParams.stars?.forEach((star) => queryParams.append("stars", star));
 
-  console.log(queryParams);
+  //console.log(queryParams);
 
   const response = await fetch(
     `${API_BASE_URL}/api/hotels/search?${queryParams}`

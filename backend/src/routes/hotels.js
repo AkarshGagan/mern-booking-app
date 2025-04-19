@@ -6,7 +6,7 @@ const router = express.Router();
 router.get("/search", async (req, res) => {
   try {
     const query = constructSearchQuery(req.query);
-    console.log(req.query.sortOption, "sortOpt");
+    //console.log(req.query.sortOption, "sortOpt");
 
     let sortOptions = {};
     switch (req.query.sortOption) {
@@ -24,8 +24,8 @@ router.get("/search", async (req, res) => {
     const pageNumber = parseInt(
       req.query.page ? req.query.page.toString() : "1"
     );
-    console.log(req.query, "req");
-    console.log(query, "cons");
+    //console.log(req.query, "req");
+    //console.log(query, "cons");
     const skip = (pageNumber - 1) * pageSize;
 
     //pageNumber 1 so skip = (1-1)*5 = 0 , 1 2 3 4 5
@@ -43,7 +43,7 @@ router.get("/search", async (req, res) => {
       .sort(sortOptions)
       .skip(skip)
       .limit(pageSize);
-    console.log(hotels, "founded");
+    //console.log(hotels, "founded");
 
     const total = await Hotel.countDocuments(query);
 
@@ -58,7 +58,7 @@ router.get("/search", async (req, res) => {
     };
     res.json(response);
   } catch (Err) {
-    console.log(Err, "error");
+    //console.log(Err, "error");
     res.status(500).json({ message: "something went wrong" });
   }
 });
@@ -94,14 +94,14 @@ const constructSearchQuery = (queryParams) => {
   }
 
   if (queryParams.types) {
-    console.log(queryParams.types, "qpt");
+    //console.log(queryParams.types, "qpt");
 
     constructedQuery.type = {
       $in: Array.isArray(queryParams.types)
         ? queryParams.types
         : [queryParams.types],
     };
-    console.log(constructedQuery.type, "cst");
+    //console.log(constructedQuery.type, "cst");
     // if u selected one type
     // Budget qpt , { '$in': [ 'Budget' ] } cst for 1
     // if u selected 2 types
