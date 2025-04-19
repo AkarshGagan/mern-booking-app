@@ -1,9 +1,11 @@
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { Link } from "react-router-dom";
 import { fetchMyHotel } from "../api-client";
 import { BsBuilding, BsMap } from "react-icons/bs";
 import { BiHotel, BiMoney, BiStar } from "react-icons/bi";
+import { useEffect } from "react";
 function MyHotels() {
+  const queryClient = useQueryClient();
   const {
     data: hotelData,
     isError,
@@ -12,6 +14,12 @@ function MyHotels() {
     queryKey: ["fetchMyHotels"],
     queryFn: fetchMyHotel,
   });
+
+  useEffect(() => {
+    console.log("invaliating");
+
+    queryClient.invalidateQueries({ queryKey: ["fetchMyHotels"] });
+  }, [queryClient]);
 
   if (!hotelData) {
     return <span>No Hotels Found</span>;
