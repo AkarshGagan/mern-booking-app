@@ -1,6 +1,6 @@
 const express = require("express");
 const Hotel = require("../models/hotel");
-
+const { check, param, validationResult } = require("express-validator");
 const router = express.Router();
 
 router.get("/search", async (req, res) => {
@@ -126,3 +126,22 @@ const constructSearchQuery = (queryParams) => {
 };
 
 module.exports = router;
+
+router.get(
+  "/:id",
+  [param("id").notEmpty().withMessage("Hotel ID is required")],
+  async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
+    const id = req.params.id.toString();
+    try {
+      const hotel = await Hotel.findById(id);
+      res.json(hotel);
+    } catch (err) {
+      console.log(err);
+      res.status(500).json({ message: "error fetching hotel" });
+    }
+  }
+);

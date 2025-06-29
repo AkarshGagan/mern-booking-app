@@ -2,9 +2,10 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 import { signIn } from "../api-client";
 import { useAppContext } from "../contexts/AppContext";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 function SignIn() {
+  const location = useLocation();
   const { showToast } = useAppContext();
   const navigate = useNavigate();
   const {
@@ -18,7 +19,7 @@ function SignIn() {
     onSuccess: async () => {
       await queryClient.invalidateQueries(["validateToken"]);
       showToast({ message: "Login Success", type: "SUCCESS" });
-      navigate("/");
+      navigate(location.state?.from?.pathname || "/");
     },
     onError: (error) => {
       showToast({ message: error.message, type: "ERROR" });
