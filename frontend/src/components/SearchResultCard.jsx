@@ -1,16 +1,27 @@
 import { Link } from "react-router-dom";
 import { AiFillStar } from "react-icons/ai";
+import Skeleton from "@mui/material/Skeleton";
 
-const SearchResultCard = ({ hotel }) => {
+const SearchResultCard = ({ hotel, isPending }) => {
   //console.log(hotel);
 
   return (
     <div className="grid grid-cols-1 xl:grid-cols-[2fr_3fr] border border-black rounded-lg p-8 gap-8">
       <div className="w-full h-[300px]">
-        <img
-          src={hotel.imageUrls[0]}
-          className="w-full h-full object-cover object-center"
-        />
+        {isPending ? (
+          <Skeleton
+            variant="rectangular"
+            animation="pulse"
+            width="100%"
+            height="100%"
+            sx={{ position: "absolute", top: 0, left: 0 }}
+          />
+        ) : (
+          <img
+            src={hotel.imageUrls[0]}
+            className="w-full h-full object-cover object-center"
+          />
+        )}
       </div>
       <div className="grid grid-rows-[1fr_2fr_1fr]">
         <div>

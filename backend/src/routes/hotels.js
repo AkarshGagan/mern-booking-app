@@ -6,6 +6,7 @@ const router = express.Router();
 router.get("/search", async (req, res) => {
   try {
     const query = constructSearchQuery(req.query);
+    console.log(query, "query");
     //console.log(req.query.sortOption, "sortOpt");
 
     let sortOptions = {};

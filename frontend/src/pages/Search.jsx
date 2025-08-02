@@ -8,6 +8,7 @@ import StarRatingFilter from "../components/StarRatingFilter";
 import FacilitiesFilter from "../components/FacilitiesFilter";
 import HotelTypesFilter from "../components/HotelTypesFilter";
 import PriceFilter from "../components/PriceFilter";
+import Loader from "../components/Loader";
 
 function Search() {
   const [page, setPage] = useState(1);
@@ -41,7 +42,9 @@ function Search() {
     queryKey: ["searchHotels", searchParams],
     queryFn: () => searcHotels(searchParams),
   });
-  //console.log(hotelData);
+  console.log(isPending, "isp");
+
+  // console.log(hotelData, "hotelData");
 
   const handleStarsChange = (e) => {
     const starRating = e.target.value;
@@ -77,7 +80,7 @@ function Search() {
   //console.log(selectedStars, "selstr");
 
   if (isPending) {
-    return <>Loading...</>;
+    return <Loader />;
   }
 
   return (
@@ -111,32 +114,38 @@ function Search() {
             {hotelData?.pagination.total} Hotels found
             {destination ? ` in ${destination}` : ""}
           </span>
-          <select
-            name=""
-            id=""
-            value={sortOption}
-            onChange={(e) => setSortOption(e.target.value)}
-            className="p-2 border rounded-md"
-          >
-            <option value="">Sort By</option>
-            <option value="starRating">Rating (high to low)</option>
-            <option value="pricePerNightAsc">
-              Price Per Night (low to high)
-            </option>
-            <option value="pricePerNightDesc">
-              Price Per Night (high to low)
-            </option>
-          </select>
+          {hotelData.data.length > 0 && (
+            <select
+              name=""
+              id=""
+              value={sortOption}
+              onChange={(e) => setSortOption(e.target.value)}
+              className="p-2 border rounded-md"
+            >
+              <option value="">Sort By</option>
+              <option value="starRating">Rating (high to low)</option>
+              <option value="pricePerNightAsc">
+                Price Per Night (low to high)
+              </option>
+              <option value="pricePerNightDesc">
+                Price Per Night (high to low)
+              </option>
+            </select>
+          )}
         </div>
         {hotelData?.data.map((hotel, index) => {
-          return <SearchResultCard key={index} hotel={hotel} />;
+          return (
+            <SearchResultCard isPending={isPending} key={index} hotel={hotel} />
+          );
         })}
         <div>
-          <Pagination
-            page={hotelData?.pagination.page || 1}
-            pages={hotelData?.pagination.pages || 1}
-            onPageChange={(page) => setPage(page)}
-          />
+          {hotelData.data.length > 0 && (
+            <Pagination
+              page={hotelData?.pagination.page || 1}
+              pages={hotelData?.pagination.pages || 1}
+              onPageChange={(page) => setPage(page)}
+            />
+          )}
         </div>
       </div>
     </div>

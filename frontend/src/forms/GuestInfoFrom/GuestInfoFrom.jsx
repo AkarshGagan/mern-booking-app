@@ -53,7 +53,7 @@ function GuestInfoForm({ hotelId, pricePerNight }) {
       data.adultCount,
       data.childCount
     );
-    navigate(`/hotel/${hotelId}/booking}`, { state: { from: location } });
+    navigate(`/hotel/${hotelId}/booking`, { state: { from: location } });
   };
 
   return (
